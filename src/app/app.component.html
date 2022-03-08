@@ -1,0 +1,15 @@
+<ng-container *ngIf="showSplash">
+  <ng-container *ngIf="isLight; else dark_container">
+    <div class="splash">
+      <div class="spinner"></div>
+    </div>
+  </ng-container>
+  <ng-template #dark_container>
+    <div class="splash-dark">
+      <div class="spinner-dark"></div>
+    </div>
+  </ng-template>
+</ng-container>
+<ion-app>
+  <ion-router-outlet></ion-router-outlet>
+</ion-app>

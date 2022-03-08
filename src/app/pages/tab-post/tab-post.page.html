@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/add-post']" routerDirection="forward">
+        <ion-icon slot="icon-only" color="primary" name="add"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/search">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-icon name="paper"></ion-icon>
+      Posts
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ng-container *ngIf="posts;else loading">
+    <ion-item-divider></ion-item-divider>
+    <div *ngFor="let post of posts">
+      <ion-card>
+        <ion-card-header>
+          <ion-grid class="ion-no-padding">
+            <ion-row class="ion-no-padding">
+              <ion-col size="7" class="ion-no-padding">
+                <ion-card-title>{{post.title}}</ion-card-title>
+                <span (click)="goToProfile(post.userId)" *ngIf="checkUser(post.userId)">{{getFollowedUser()}}</span>
+              </ion-col>
+              <ion-col size="5" class="ion-no-padding" *ngIf="(post.userId != userId) && (!getFollowedUser())">
+                <ion-button fill="outline" shape="round" size="small" (click)="followPerson($event,post.userId)">
+                  <span class="uppercase small">follow</span>
+                  <ion-icon slot="end" name="add"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-text>
+            <span class="small">{{post.date.toDate() | timeAgo}}</span>
+          </ion-text>
+        </ion-card-header>
+        <ion-card-content>
+          <span>{{post.content}}</span>
+        </ion-card-content>
+        <ion-grid class="ion-no-padding ion-no-margin">
+          <ion-row class="ion-no-padding ion-no-margin">
+            <ion-col size="auto" class=" ion-no-margin">
+              <ion-chip *ngFor="let tag of post.tags" color="secondary">
+                <ion-text>
+                  <span class="small">{{tag}}</span>
+                </ion-text>
+              </ion-chip>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item color="light">
+          <ion-label class="center">
+            <ion-text color="tertiary">
+              <span class="small">See more</span>
+            </ion-text>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </ng-template>
+</ion-content>

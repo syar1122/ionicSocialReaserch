@@ -1,0 +1,11 @@
+<ion-content class="ion-padding">
+  <form [formGroup]="form">
+    <ion-input clearInput class="input" type="text" placeholder="Name this Person" formControlName="input" maxlength="20"></ion-input>
+    <ion-button (click)="submit()" fill="solid" expand="block" *ngIf="form.valid">
+      follow
+    </ion-button>
+    <ion-button (click)="cancel()" fill="solid" expand="block" *ngIf="!form.valid">
+        Cancel
+      </ion-button>
+  </form>
+</ion-content>

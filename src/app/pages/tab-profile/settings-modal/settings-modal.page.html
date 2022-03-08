@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab-profile"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Settings
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed (click)="t.checked=!t.checked;" class="cursor">
+    <ion-row>
+      <ion-col size="10">
+        <ion-text color="primary">
+          <h5>Dark Mode</h5>
+        </ion-text>
+      </ion-col>
+      <ion-col size="2" class="ion-align-self-center">
+        <ion-toggle [checked]="theme" #t (click)="t.checked=!t.checked" (ionChange)="changeTheme()"></ion-toggle>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <hr>
+</ion-content>

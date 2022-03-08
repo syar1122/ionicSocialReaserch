@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon name="checkmark-circle"></ion-icon>
+      Categories you like
+    </ion-title>
+    <ion-buttons slot="primary" *ngIf="!isSearchBarOpened">
+      <ion-button (click)="searchbarToggle()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="isSearchBarOpened">
+    <ion-searchbar (ionInput)=filterData($event) autofocus showCancelButton="true" (ionCancel)="searchbarToggle()" #searchbar>
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list *ngIf="!categoryDone;else new">
+    <ion-label>old</ion-label>
+    <ion-item *ngFor="let item of filteredData">
+      <ion-label>{{item.name}}</ion-label>
+      <ion-checkbox slot="end" (click)="onChange(item.name, $event.target.checked)" name="{{ item.name }}"
+        [(ngModel)]="item.checked"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #new>
+    <ion-label>New</ion-label>
+    <ion-list>
+      <ion-item *ngFor="let item of filteredData">
+        <ion-label>{{item.name}}</ion-label>
+        <ion-checkbox slot="end" (click)="onChange(item, $event.target.checked)" name="{{ item.name }}"
+          [(ngModel)]="item.checked"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+  <ion-button (click)="categoryDone ? setCategories() : editCategories()">
+    Add Categories
+  </ion-button>
+</ion-content>

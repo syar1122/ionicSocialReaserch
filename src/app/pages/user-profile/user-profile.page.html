@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container class="ion-padding" *ngIf="user; else loading">
+    <p>{{user.nickname}}</p>
+    <p>{{user.userId}}</p>
+  </ng-container>
+  <ng-template #loading>
+    <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </ng-template>
+
+
+</ion-content>
